@@ -54,7 +54,8 @@ let hostelCache = [];
 // Function to prefetch hostel data
 async function prefetchHostelData() {
     try {
-        hostelCache = await Hostel.find(); // Fetch all hostels and store in cache
+        // Limit the number of documents prefetched to reduce memory usage
+        hostelCache = await Hostel.find().limit(100); // Adjust limit as needed
         console.log('Hostel data pre-fetched and cached');
     } catch (error) {
         console.error('Error pre-fetching hostel data:', error);
