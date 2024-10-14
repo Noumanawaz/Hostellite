@@ -11,12 +11,13 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 // Define the MongoDB URI and connect
 const mongoURI = process.env.MONGODB_URI;
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI, { connectTimeoutMS: 30000 }) // 30 seconds timeout
     .then(() => {
         console.log('MongoDB connected');
-        prefetchHostelData(); // Prefetch hostel data after MongoDB connection is established
     })
-    .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err.message);
+    });
 
 
 // Update the schema to include 'category' and 'rating'
