@@ -1,21 +1,23 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 
-const port = 4000;
+const port = process.env.PORT || 4000; // Use environment variable for port
 app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
 
 // Define the MongoDB URI and connect
-const mongoURI = 'mongodb://localhost:27017/hostels';
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const mongoURI = process.env.MONGODB_URI;
+mongoose.connect(mongoURI)
     .then(() => {
         console.log('MongoDB connected');
         prefetchHostelData(); // Prefetch hostel data after MongoDB connection is established
     })
     .catch(err => console.error('MongoDB connection error:', err));
+
 
 // Update the schema to include 'category' and 'rating'
 const hostelSchema = new mongoose.Schema({
@@ -184,6 +186,5 @@ app.get('/hostel-limit', (req, res) => {
 });
 
 app.listen(port, () => {
-
     console.log(`App is running on http://localhost:${port}`);
 });
