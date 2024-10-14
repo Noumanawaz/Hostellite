@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js", // Add this line to start your app
-    "dev": "nodemon app.js", // Optional: add this line if you want to use nodemon in development
+    "start": "node app.js",
+    "dev": "nodemon app.js", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
