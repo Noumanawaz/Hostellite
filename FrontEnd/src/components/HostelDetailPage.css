@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #3C6786;
+}
+
+h1 {
+    color: #3C6786;
+    font-weight: 700;
+}
+
+.hosteladdress {
+    color: #3C6786;
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    /* Add space above the address */
+    z-index: 1;
+    /* Ensure it stays above other elements */
+}
+
+.hostelrating {
+    color: #3C6786;
+    font-weight: 700;
+}
+
+.star-icon {
+    font-size: 1.5rem;
+    color: #e9b629;
+}
+
+.images-slider {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    /* Ensure content doesn't overflow */
+    z-index: 0;
+    /* Make sure slider doesn't overlap with the address */
+}
+
+.images-slider .slick-slide {
+    padding: 0 10px;
+    /* Keep the gap between images */
+}
+
+.images-slider .slick-list {
+    margin: 0 -10px;
+    /* Match the padding for centering */
+}
+
+.images-slider img {
+    width: 100%;
+    /* Fill the slider container */
+    height: 50vh;
+    border-radius: 22px;
+    max-height: 400px;
+    /* Control the height of the images */
+    object-fit: cover;
+    /* Ensures the images fit well within the container */
+    border: 1.5px solid #3C6786;
+}
+
+.Facilitiesheading {
+    color: #3C6786;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.Facility {
+    flex: 1 1 calc(33% - 2rem);
+    /* Adjust the percentage to fit 3 items per row */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* Ensure icons and text stack vertically */
+    border-radius: 20px;
+    border: 2px solid #3C6786;
+    padding: 15px;
+    /* Uniform padding for all sides */
+    margin: 1rem;
+    /* Add margin for spacing between items */
+    background-color: #f8f9fa;
+    /* Light background color for contrast */
+    box-shadow: 0 4px 8px rgba(22, 116, 240, 0.22);
+    /* Subtle shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transitions */
+}
+
+.Facility:hover {
+    transform: translateY(-5px);
+    /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhance shadow on hover */
+}
+
+.facility-icon {
+    font-size: 2rem;
+    /* Increase icon size */
+    color: #3C6786;
+    /* Matching color with border */
+}
+
+.Facility p {
+    margin: 0;
+    /* Remove default margin */
+    font-size: 1rem;
+    /* Adjust text size for readability */
+    color: #3C6786;
+    /* Consistent text color */
+    font-weight: 600;
+    /* Bold text */
+    text-align: center;
+    /* Center align text */
+}
+
+/* Existing CSS ... */
+
+.about-card,
+.contact-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.about-card:hover,
+.contact-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex: 1;
+    /* Allows the card body to expand to fill the card */
+}
+
+.about-card,
+.contact-card {
+    height: auto;
+    /* Adjust height based on content */
+    min-height: 200px;
+    /* Ensures a minimum height for better appearance */
+}
+
+.card-title {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.card-text {
+    color: #ffffff;
+}
+
+.contact-card a {
+    color: #3C6786;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 767px) {
+
+    .about-card,
+    .contact-card {
+        margin-bottom: -2rem;
+        /* Reduced margin between cards */
+    }
+
+    .rating {
+        margin-top: -10px;
+    }
+
+    .images-slider img {
+        height: 24vh;
+    }
+
+
+}

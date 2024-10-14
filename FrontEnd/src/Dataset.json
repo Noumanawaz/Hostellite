@@ -1,0 +1,212 @@
+[
+    {
+        "name": "Munawar Hostel",
+        "image": "https://example.com/images/hostel-paradise.jpeg",
+        "location": {
+            "latitude": 33.64172,
+            "longitude": 73.01686
+            
+        },
+        "description": "A comfortable and affordable hostel in the heart of the city, with modern amenities and friendly staff.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 20
+            },
+            {
+                "type": "Private Room",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "name": "The Cozy Corner",
+        "image": "https://example.com/images/cozy-corner.jpeg",
+        "location": {
+            "latitude": 34.052235,
+            "longitude": -118.243683
+        },
+        "description": "A quaint hostel offering a relaxed atmosphere with easy access to local attractions.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 18
+            },
+            {
+                "type": "Private Room",
+                "price": 45
+            }
+        ]
+    },
+    {
+        "name": "Urban Oasis",
+        "image": "https://example.com/images/urban-oasis.jpeg",
+        "location": {
+            "latitude": 51.507351,
+            "longitude": -0.127758
+        },
+        "description": "An upscale hostel with a focus on comfort and style, located in a vibrant neighborhood.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 25
+            },
+            {
+                "type": "Private Room",
+                "price": 60
+            }
+        ]
+    },
+    {
+        "name": "The Friendly Inn",
+        "image": "https://example.com/images/friendly-inn.jpeg",
+        "location": {
+            "latitude": 48.856613,
+            "longitude": 2.352222
+        },
+        "description": "A welcoming hostel with a homely feel, perfect for travelers seeking a community vibe.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 22
+            },
+            {
+                "type": "Private Room",
+                "price": 55
+            }
+        ]
+    },
+    {
+        "name": "Backpacker Haven",
+        "image": "https://example.com/images/backpacker-haven.jpeg",
+        "location": {
+            "latitude": 39.904202,
+            "longitude": 116.407394
+        },
+        "description": "A budget-friendly hostel with easy access to public transportation and local sights.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 15
+            },
+            {
+                "type": "Private Room",
+                "price": 40
+            }
+        ]
+    },
+    {
+        "name": "The Global Hostel",
+        "image": "https://example.com/images/global-hostel.jpeg",
+        "location": {
+            "latitude": 35.689487,
+            "longitude": 139.691711
+        },
+        "description": "A modern hostel with a diverse range of amenities, catering to travelers from around the world.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 30
+            },
+            {
+                "type": "Private Room",
+                "price": 70
+            }
+        ]
+    },
+    {
+        "name": "Mountain Retreat",
+        "image": "https://example.com/images/mountain-retreat.jpeg",
+        "location": {
+            "latitude": 40.712776,
+            "longitude": -74.005974
+        },
+        "description": "A tranquil hostel located near scenic mountain views, ideal for nature enthusiasts.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 28
+            },
+            {
+                "type": "Private Room",
+                "price": 65
+            }
+        ]
+    },
+    {
+        "name": "City Lights Hostel",
+        "image": "https://example.com/images/city-lights-hostel.jpeg",
+        "location": {
+            "latitude": 37.774929,
+            "longitude": -122.419418
+        },
+        "description": "A stylish hostel with a vibrant atmosphere and easy access to city nightlife.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 23
+            },
+            {
+                "type": "Private Room",
+                "price": 58
+            }
+        ]
+    },
+    {
+        "name": "Beachside Hostel",
+        "image": "https://example.com/images/beachside-hostel.jpeg",
+        "location": {
+            "latitude": -33.868820,
+            "longitude": 151.209296
+        },
+        "description": "A laid-back hostel with stunning ocean views and direct access to the beach.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 25
+            },
+            {
+                "type": "Private Room",
+                "price": 60
+            }
+        ]
+    },
+    {
+        "name": "Historic Lodge",
+        "image": "https://example.com/images/historic-lodge.jpeg",
+        "location": {
+            "latitude": 55.755825,
+            "longitude": 37.617298
+        },
+        "description": "A charming hostel set in a historic building with modern amenities and a rich history.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 20
+            },
+            {
+                "type": "Private Room",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "name": "Luxury Backpackers",
+        "image": "https://example.com/images/luxury-backpackers.jpeg",
+        "location": {
+            "latitude": 28.613939,
+            "longitude": 77.209023
+        },
+        "description": "A high-end hostel offering luxury facilities for the discerning traveler.",
+        "rooms": [
+            {
+                "type": "Dormitory",
+                "price": 35
+            },
+            {
+                "type": "Private Room",
+                "price": 80
+            }
+        ]
+    }
+]

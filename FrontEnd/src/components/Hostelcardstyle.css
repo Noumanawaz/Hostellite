@@ -1,0 +1,9 @@
+@media (max-width: 576px) {
+    .btn {
+        display: none;
+    }
+
+    .hostel-card {
+        border-radius: '20px';
+    };
+}

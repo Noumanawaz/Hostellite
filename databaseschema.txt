@@ -1,0 +1,68 @@
+const hostelSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    location: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ['boys', 'girls', 'mixed'], // You can adjust categories based on requirements
+        trim: true
+    },
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    images: {
+        type: [String], // Array of Base64 encoded images as strings
+        validate: {
+            validator: function(array) {
+                return array.every(img => typeof img === 'string'); // Ensure each entry is a string
+            },
+            message: 'All images must be Base64 encoded strings.'
+        }
+    },
+    roomPrices: {
+        type: [Number], // Array of room prices in numbers
+        required: true,
+        validate: {
+            validator: function(array) {
+                return array.length > 0; // Ensure there is at least one price
+            },
+            message: 'There must be at least one room price.'
+        }
+    },
+    facilities: {
+        wifi: {
+            type: Boolean,
+            default: false
+        },
+        breakfast: {
+            type: Boolean,
+            default: false
+        },
+        ac: {
+            type: Boolean,
+            default: false
+        },
+        laundry: {
+            type: Boolean,
+            default: false
+        },
+        parking: {
+            type: Boolean,
+            default: false
+        },
+        security: {
+            type: Boolean,
+            default: false
+        }
+    }
+});

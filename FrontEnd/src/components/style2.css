@@ -1,0 +1,109 @@
+/* MainScreen CSS */
+.container {
+    max-width: 100%;
+    padding: 0 15px; /* Add some padding to the container */
+}
+
+.main-card {
+    width: 100%; /* Set to full width */
+    max-width: 1210px; /* Set a maximum width to align with the header */
+    height: 70vh; /* Adjust the height for a better fit */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    filter: brightness(60%); /* Darken the image for better text visibility */
+}
+
+.card-img-overlay {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for contrast */
+    color: white;
+    border-radius: 10px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center; /* Center the form */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 10vh;
+}
+
+.input-group {
+    width: 70%; /* Reduced width */
+    max-width: 600px; /* Set a maximum width */
+    position: relative;
+}
+
+.input-group-text.search-icon {
+    background-color: white;
+    border: 2px solid #3C6786;
+    border-right: none;
+    border-radius: 50px 0 0 50px;
+    color: #3C6786;  /* Theme color for icon */
+}
+
+.input-group input.form-control {
+    padding: 10px;
+    border: 2px solid #3C6786;
+    border-left: none;
+    outline: none;
+    box-shadow: none;
+    color: #3C6786;  /* Theme color for text */
+    border-radius: 32px 32px 32px 32px;
+}
+
+.search-button {
+    background-color: #3C6786;  /* Theme color */
+    width: 25%;
+    color: white;
+    border: none;
+    padding: 6px 12px; /* Reduced button size */
+    border-radius: 0 32px 32px 0;  /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #2C5173;  /* Slightly darker shade on hover */
+}
+
+@media (max-width: 576px) {
+    .main-card {
+        height: 40vh; /* Adjust height for smaller screens */
+    }
+    
+    .input-group {
+        width: 100%; /* Full width on small screens */
+        position: relative;
+        height: 7vh;
+    }
+
+    .input-group input.form-control {
+        border-radius: 32px; /* Keep consistent border radius on small screens */
+    }
+
+    .search-form {
+        margin-bottom: -10px;
+    }
+
+    .SpecialNeed {
+        border-radius: 32px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+@media (max-width: 576px) {
+    .SpecialNeed {
+        border-radius: 50px !important; /* Set border-radius to 50px on small screens */
+        border-top-left-radius: 0% !important;
+        border-bottom-left-radius: 0 !important;
+    }
+}
+

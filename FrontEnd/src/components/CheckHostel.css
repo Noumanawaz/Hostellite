@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: #3c6786;
+}
+
+.navbar {
+    background-color: #2a4b64;
+    display: flex;
+    justify-content: center;
+}
+
+.lefticon {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.searchbar {
+    background-color: white;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    /* Add padding for better spacing */
+    width: 50%;
+}
+
+.mapicon {
+    background-color: red;
+    color: #2a4b64;
+    font-size: 2.1rem;
+    margin-right: 10px;
+    /* Adjust spacing between icon and input */
+}
+
+.inputbar {
+    background-color: yellow;
+    flex-grow: 1;
+    /* Input takes up remaining space */
+    width: 100%;
+}
+
+.inputbar input {
+    background-color: yellow;
+    flex-grow: 1;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #2a4b64;
+    border: none;
+    outline: none;
+    padding: 8px 0;
+    margin-left: 0px;
+    /* Align input next to the icon */
+    width: 100%;
+}
+
+.Searchbutton {
+    background-color: green;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+    background-color: #3c6786;
+    border-color: #3c6786;
+    border-radius: 18px;
+    padding: 6px 18px;
+    border: none;
+    margin-left: 0px;
+    transform: translateY(-3px);
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 771px) {
+    .lefticon {
+        color: white;
+        font-size: 2.5rem;
+        margin-left: 20px;
+    }
+}
+
+
+
+
+.Location {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.Location h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.Location h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0px 0 0;
+    /* Add space above and below the text */
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 2rem;
+    margin: 0px;
+    color: #3c6786;
+}
+
+.card-text {
+    font-weight: 400;
+    color: #3c6786;
+}
+
+.Facilities-text {
+    color: #3c6786;
+}
+
+.btn-primary {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    background-color: #3c6786;
+    border-color: #3c6786;
+    justify-content: end;
+}
+
+.btn-primary:hover {
+    background-color: #2a4b64;
+    border-color: #2a4b64;
+}
+
+.Facilities {
+    display: flex;
+    gap: 15px;
+    color: rgb(10, 238, 59);
+    font-size: 1.3rem;
+}
