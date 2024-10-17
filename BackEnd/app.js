@@ -19,12 +19,13 @@ const port = process.env.PORT || 4000; // Use environment variable for port
 
 // MongoDB connection
 const mongoURI = process.env.MONGODB_URI;
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI, { connectTimeoutMS: 30000 }) // 30 seconds timeout
     .then(() => {
         console.log('MongoDB connected');
-        prefetchHostelData(); // Prefetch hostel data after MongoDB connection is established
     })
-    .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err.message);
+    });
 
 // Define the hostel schema
 const hostelSchema = new mongoose.Schema({
@@ -58,7 +59,8 @@ let hostelCache = [];
 // Function to prefetch hostel data
 async function prefetchHostelData() {
     try {
-        hostelCache = await Hostel.find(); // Fetch all hostels and store in cache
+        // Limit the number of documents prefetched to reduce memory usage
+        hostelCache = await Hostel.find().limit(100); // Adjust limit as needed
         console.log('Hostel data pre-fetched and cached');
     } catch (error) {
         console.error('Error pre-fetching hostel data:', error);
