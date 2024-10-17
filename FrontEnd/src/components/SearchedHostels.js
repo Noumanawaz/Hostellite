@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import HostelCard from './HostelCard'; // Assuming you have a component to display each hostel
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import loader from '../images/Walk.gif'; // Assuming you have a loading gif
+import HostelCard from './HostelCard';
 import SearchBar from './SearchBar';
-export default function SearchedHostels() {
+import loader from '../images/Walk.gif';
+
+function SearchedHostels() {
     const [hostels, setHostels] = useState([]);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        const query = searchParams.get('query'); // Extract query parameter
+        const query = searchParams.get('query');
 
         if (query) {
-            axios.post('http://localhost:4000/search', { query })
+            axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/search`, { query })
                 .then(response => {
-                    setHostels(response.data); // Set the hostels with search results
+                    setHostels(response.data);
                     setLoading(false);
                 })
                 .catch(error => {
@@ -24,14 +25,14 @@ export default function SearchedHostels() {
                     setLoading(false);
                 });
         } else {
-            setLoading(false); // No query provided
+            setLoading(false);
         }
     }, [location.search]);
 
     if (loading) {
         return (
-            <div>
-                <img src={loader} alt="Loading..." style={{ width: '50px', height: '50px' }} />
+            <div style={{ textAlign: 'center' }}>
+                <img src={loader} alt="Loading..." style={{ width: '50px' }} />
             </div>
         );
     }
@@ -41,7 +42,7 @@ export default function SearchedHostels() {
             <SearchBar />
             <div className="container py-5">
                 <h1>Searched Hostels</h1>
-                {hostels.length > 0 ? (
+                {hostels.length ? (
                     hostels.map((hostel) => (
                         <HostelCard key={hostel._id} name={hostel.name} address={hostel.location} image={hostel.images[0]} />
                     ))
@@ -52,3 +53,5 @@ export default function SearchedHostels() {
         </div>
     );
 }
+
+export default SearchedHostels;

@@ -3,8 +3,7 @@ import HostelCard from "./HostelCard";
 import SearchBar from "./SearchBar";
 import FilterCard from "./FilterCard";
 import axios from 'axios';
-import loader from "../images/Walk.gif";
-// Import Font Awesome icons
+import loader from "../images/Walk.gif"; // Import loading GIF
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,9 +21,10 @@ export default function HostelList() {
 
     const fetchHostelData = (page, category) => {
         setLoading(true);
-        let url = `http://localhost:4000/hostel-data?page=${page}&limit=${itemsPerPage}`;
+        // Use relative URL to allow the proxy to work
+        let url = `${process.env.REACT_APP_BACKEND_API_URL}/hostel-data?page=${page}&limit=${itemsPerPage}`;
         if (category) {
-            url = `http://localhost:4000/hostels?category=${category}&page=${page}&limit=${itemsPerPage}`;
+            url = `${process.env.REACT_APP_BACKEND_API_URL}/hostels?category=${category}&page=${page}&limit=${itemsPerPage}`;
         }
 
         axios.get(url)
@@ -163,14 +163,13 @@ export default function HostelList() {
 
             {/* Adding media query for button styling */}
             <style>{`
-    @media (max-width: 600px) {
-        .PageButton {
-            width: 20px;
-            height: 20px;
-        }
-    }
-`}</style>
-
+                @media (max-width: 600px) {
+                    .PageButton {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            `}</style>
         </div>
     );
 }

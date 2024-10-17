@@ -20,9 +20,10 @@ export default function FilteredHostelList() {
                 facilities: Array.isArray(facilities) ? facilities.join(',') : '',
             }).toString();
 
-            console.log(`Fetching from: http://localhost:4000/hostels?${queryParams}`);
+            console.log(`Fetching from: /hostels?${queryParams}`);
 
-            axios.get(`http://localhost:4000/hostels?${queryParams}`)
+            // Using relative URL
+            axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/hostels?${queryParams}`)
                 .then(response => {
                     console.log('API Response:', response.data);
                     setFilteredHostels(response.data || []);
@@ -55,7 +56,7 @@ export default function FilteredHostelList() {
             </div>
             {hostelCount > 0 ? (
                 filteredHostels.map((hostel) => (
-                    <div className='container' key={hostel._id}> {/* Added key prop here */}
+                    <div className='container' key={hostel._id}>
                         <HostelCard
                             key={hostel._id}
                             name={hostel.name}

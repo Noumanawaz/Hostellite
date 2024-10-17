@@ -4,12 +4,20 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 
-const port = process.env.PORT || 4000; // Use environment variable for port
-app.use(express.static('public')); // Serve static files from the 'public' directory
-app.use(cors());
-app.use(express.json()); // Middleware to parse JSON bodies
+// CORS configuration
+const corsOptions = {
+    origin: '*', // Allow all origins for development (update for production)
+    credentials: true, // Allow credentials if needed
+};
 
-// Define the MongoDB URI and connect
+// Middleware setup
+app.use(cors(corsOptions));
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.static('public')); // Serve static files from the 'public' directory
+
+const port = process.env.PORT || 4000; // Use environment variable for port
+
+// MongoDB connection
 const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI)
     .then(() => {
@@ -18,21 +26,18 @@ mongoose.connect(mongoURI)
     })
     .catch(err => console.error('MongoDB connection error:', err));
 
-
-// Update the schema to include 'category' and 'rating'
+// Define the hostel schema
 const hostelSchema = new mongoose.Schema({
-    name: String,
-    images: {
-        type: [String], // Array of image URLs
-    },
-    location: String, // Single string for location
-    description: String,
-    category: { // New field for category (boys, girls, etc.)
+    name: { type: String, required: true },
+    images: { type: [String] }, // Array of image URLs
+    location: { type: String, required: true }, // Single string for location
+    description: { type: String },
+    category: {
         type: String,
         enum: ['boys', 'girls', 'co-ed'], // Define allowed categories
         required: true
     },
-    rating: { // New field for rating
+    rating: {
         type: Number,
         min: 0,
         max: 5
@@ -65,15 +70,9 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-// Route for the about page
-app.get('/about', (req, res) => {
-    res.send('This is the About page');
-});
-
-// Route for hostel info page
+// Route for fetching hostel info by name
 app.get('/hostel/:name', (req, res) => {
     const hostelName = req.params.name;
-    // Fetch hostel data by name
     const hostel = hostelCache.find(h => h.name === hostelName);
     if (hostel) {
         res.json(hostel);
@@ -82,109 +81,72 @@ app.get('/hostel/:name', (req, res) => {
     }
 });
 
-// Route to get limited hostel data from cache
-app.get('/hostel-data', async (req, res) => {
+// Route to get limited hostel data from cache with pagination
+app.get('/hostel-data', (req, res) => {
     const page = parseInt(req.query.page) || 1; // Get the page number from query parameter
     const limit = parseInt(req.query.limit) || 5; // Get the limit from query parameter
     const skip = (page - 1) * limit; // Calculate the number of documents to skip
 
-    try {
-        const totalHostels = await Hostel.countDocuments(); // Get total count of hostels
-        const hostels = await Hostel.find().skip(skip).limit(limit); // Fetch limited hostels with skip
+    // Calculate total number of hostels from the cache
+    const totalHostels = hostelCache.length;
 
-        res.json({
-            totalPages: Math.ceil(totalHostels / limit),
-            currentPage: page,
-            hostels
-        }); // Send the paginated hostel data as JSON
-    } catch (error) {
-        console.error('Error fetching hostel data:', error);
-        res.status(500).json({ message: 'Error fetching hostel data', error });
-    }
+    // Slice the cached data to get the current page of hostels
+    const hostels = hostelCache.slice(skip, skip + limit);
+
+    res.json({
+        totalPages: Math.ceil(totalHostels / limit),
+        currentPage: page,
+        hostels
+    });
 });
 
-// New route to filter hostels by category and rating
-app.get('/hostels', async (req, res) => {
-    const { category, rating } = req.query; // Get category and rating from query parameters
+// Route to filter hostels by category and rating
+app.get('/hostels', (req, res) => {
+    const { category, rating } = req.query;
 
-    try {
-        // Build the query dynamically based on provided filters
-        let query = {};
+    // Filter the cached hostels based on query parameters
+    let filteredHostels = hostelCache;
 
-        // Check if category is provided
-        if (category) {
-            query.category = category; // Use the provided category for filtering
-            console.log(`Filtering by category: ${category}`); // Log the category filter
-        }
-
-        // Initialize sorting variable
-        let sort = {};
-
-        // Check if rating is provided
-        if (rating) {
-            if (rating === "low-to-high") {
-                // If user wants to sort from low to high
-                sort.rating = 1; // Ascending
-                console.log('Sorting by rating: low-to-high');
-            } else if (rating === "high-to-low") {
-                // If user wants to sort from high to low
-                sort.rating = -1; // Descending
-                console.log('Sorting by rating: high-to-low');
-            } else {
-                // Filtering by rating, assuming we want to filter ratings >= provided number
-                const parsedRating = parseFloat(rating);
-                if (!isNaN(parsedRating)) {
-                    query.rating = { $gte: parsedRating }; // Get hostels with a rating greater or equal to the provided rating
-                    console.log(`Filtering by rating: ${parsedRating}`); // Log the rating filter
-                } else {
-                    console.warn(`Invalid rating value provided: ${rating}`); // Log a warning for invalid rating
-                    return res.status(400).json({ message: 'Invalid rating value provided' });
-                }
-            }
-        }
-
-        console.log('Query:', query); // Log the constructed query
-
-        // Fetch hostels based on filters
-        const filteredHostels = await Hostel.find(query).sort(sort);
-
-        // Log the number of results found
-        console.log(`Found ${filteredHostels.length} hostels matching the query.`);
-
-        res.json(filteredHostels); // Send filtered hostels as JSON
-    } catch (error) {
-        console.error('Error fetching filtered hostel data:', error);
-        res.status(500).json({ message: 'Error fetching filtered hostel data', error });
+    if (category) {
+        filteredHostels = filteredHostels.filter(h => h.category === category);
+        console.log(`Filtering by category: ${category}`);
     }
+
+    if (rating) {
+        const parsedRating = parseFloat(rating);
+        if (!isNaN(parsedRating)) {
+            filteredHostels = filteredHostels.filter(h => h.rating >= parsedRating);
+            console.log(`Filtering by rating: ${parsedRating}`);
+        } else {
+            console.warn(`Invalid rating value provided: ${rating}`);
+            return res.status(400).json({ message: 'Invalid rating value provided' });
+        }
+    }
+
+    console.log(`Found ${filteredHostels.length} hostels matching the query.`);
+    res.json(filteredHostels);
 });
 
-// New route to handle search requests
-app.post('/search', async (req, res) => {
-    const { query } = req.body; // Extract the search query from the request body
+// Route for search requests
+app.post('/search', (req, res) => {
+    const { query } = req.body;
 
-    try {
-        // Perform search: partial match on location or name
-        const searchResults = await Hostel.find({
-            $or: [
-                { location: { $regex: query, $options: 'i' } }, // Partial match for location (case-insensitive)
-                { name: { $regex: query, $options: 'i' } } // Partial match for name (case-insensitive)
-            ]
-        });
+    // Filter hostels based on search query from cache
+    const searchResults = hostelCache.filter(h =>
+        h.location.match(new RegExp(query, 'i')) || h.name.match(new RegExp(query, 'i'))
+    );
 
-        res.json(searchResults); // Send the search results as JSON
-    } catch (error) {
-        console.error('Error performing search:', error);
-        res.status(500).json({ message: 'Error performing search', error });
-    }
+    res.json(searchResults);
 });
 
 // Route to get a limited number of hostels from cache
 app.get('/hostel-limit', (req, res) => {
-    const limit = parseInt(req.query.limit) || 5; // Default to 5 if no limit is specified
-    const limitedHostels = hostelCache.slice(0, limit); // Get the limited number of hostels
+    const limit = parseInt(req.query.limit) || 5;
+    const limitedHostels = hostelCache.slice(0, limit);
     res.json(limitedHostels);
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`App is running on http://localhost:${port}`);
 });

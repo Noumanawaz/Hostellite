@@ -13,8 +13,14 @@ function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:4000/')
-      .then(response => response.text())
+    // Replace 'YOUR_NGROK_URL' with your actual Ngrok URL
+    fetch(`${process.env.REACT_APP_BACKEND_API_URL}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
       .then(data => setMessage(data))
       .catch(error => console.error('Error:', error));
   }, []);

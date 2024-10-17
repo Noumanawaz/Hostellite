@@ -42,9 +42,9 @@ function HostelDetail() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/hostel/${name}`);
+                // Fetching hostel details using the full Ngrok URL
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/hostel/${name}`);
                 setHostel(response.data);
-
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -54,6 +54,7 @@ function HostelDetail() {
 
         fetchData();
     }, [name]);
+
 
     if (loading) {
         return (
