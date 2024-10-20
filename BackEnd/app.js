@@ -73,6 +73,10 @@ app.get('/', (req, res) => {
     console.log(`Running in ${process.env.NODE_ENV || 'development'} mode`);
 });
 
+app.get('/about', (req, res) => {
+    res.send('This is about page');
+});
+
 // Route for fetching hostel info by name
 app.get('/hostel/:name', (req, res) => {
     const hostelName = req.params.name;
