@@ -70,6 +70,7 @@ async function prefetchHostelData() {
 // Route for the home page
 app.get('/', (req, res) => {
     res.send('Hello World');
+    console.log(`Running in ${process.env.NODE_ENV || 'development'} mode`);
 });
 
 // Route for fetching hostel info by name
