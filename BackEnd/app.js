@@ -28,6 +28,7 @@ const mongoURI = "mongodb+srv://noumannawaz2004:MiWbBL07lOVr1UVV@cluster0.isdx4.
 mongoose.connect(mongoURI, { connectTimeoutMS: 30000 }) // 30 seconds timeout
     .then(() => {
         console.log(`Connected to MongoDB at ${mongoURI}`);
+        prefetchHostelData();
     })
     .catch(err => {
         console.error('MongoDB connection error:', err.message);
@@ -75,7 +76,7 @@ async function prefetchHostelData() {
 }
 
 // Prefetch hostel data on server startup
-prefetchHostelData();
+
 
 // Route for the home page
 app.get('/', (req, res) => {
