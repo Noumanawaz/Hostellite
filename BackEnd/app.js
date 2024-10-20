@@ -28,7 +28,7 @@ const mongoURI = "mongodb+srv://noumannawaz2004:MiWbBL07lOVr1UVV@cluster0.isdx4.
 mongoose.connect(mongoURI, { connectTimeoutMS: 30000 }) // 30 seconds timeout
     .then(() => {
         console.log(`Connected to MongoDB at ${mongoURI}`);
-        prefetchHostelData();
+        // prefetchHostelData();
     })
     .catch(err => {
         console.error('MongoDB connection error:', err.message);
@@ -160,11 +160,20 @@ app.post('/search', (req, res) => {
 });
 
 // Route to get a limited number of hostels from cache
-app.get('/hostel-limit', (req, res) => {
-    const limit = parseInt(req.query.limit) || 5;
-    const limitedHostels = hostelCache.slice(0, limit);
-    res.json(limitedHostels);
+// Route to get the first 5 hostels from MongoDB
+app.get('/hostel-limit', async (req, res) => {
+    try {
+        // Fetch the first 5 hostels from the collection
+        const hostels = await Hostel.find().limit(5); // Adjust the number as needed
+
+        // Send the fetched data as a JSON response
+        res.json(hostels);
+    } catch (error) {
+        console.error('Error fetching limited hostels:', error);
+        res.status(500).json({ message: 'Server error while fetching hostels' });
+    }
 });
+
 
 // Start the server
 app.listen(port, () => {
