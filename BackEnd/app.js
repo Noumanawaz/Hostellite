@@ -17,11 +17,17 @@ app.use(express.static('public')); // Serve static files from the 'public' direc
 
 const port = process.env.PORT || 4000; // Use environment variable for port
 
+// Check if the environment variables are loaded
+console.log('Environment variables loaded:', {
+    MONGODB_URI: process.env.MONGODB_URI,
+    PORT: process.env.PORT,
+});
+
 // MongoDB connection
 const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI, { connectTimeoutMS: 30000 }) // 30 seconds timeout
     .then(() => {
-        console.log('MongoDB connected');
+        console.log(`Connected to MongoDB at ${mongoURI}`);
     })
     .catch(err => {
         console.error('MongoDB connection error:', err.message);
@@ -58,26 +64,29 @@ let hostelCache = [];
 
 // Function to prefetch hostel data
 async function prefetchHostelData() {
-    console.log('MongoDB URI:', process.env.MONGODB_URI);
     try {
+        console.log('Prefetching hostel data...');
         // Limit the number of documents prefetched to reduce memory usage
         hostelCache = await Hostel.find().limit(100); // Adjust limit as needed
-        console.log('Hostel data pre-fetched and cached');
+        console.log('Hostel data cached:', hostelCache.length, 'records');
     } catch (error) {
         console.error('Error pre-fetching hostel data:', error);
     }
 }
+
+// Prefetch hostel data on server startup
+prefetchHostelData();
 
 // Route for the home page
 app.get('/', (req, res) => {
     res.send('Hello World');
     console.log(`Running in ${process.env.NODE_ENV || 'development'} mode`);
     console.log('MongoDB URI:', process.env.MONGODB_URI);
-
 });
 
 app.get('/about', (req, res) => {
     res.send('This is about page');
+    console.log('MongoDB URI:', process.env.MONGODB_URI);
 });
 
 // Route for fetching hostel info by name
