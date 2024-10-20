@@ -58,6 +58,7 @@ let hostelCache = [];
 
 // Function to prefetch hostel data
 async function prefetchHostelData() {
+    console.log('MongoDB URI:', process.env.MONGODB_URI);
     try {
         // Limit the number of documents prefetched to reduce memory usage
         hostelCache = await Hostel.find().limit(100); // Adjust limit as needed
@@ -71,6 +72,8 @@ async function prefetchHostelData() {
 app.get('/', (req, res) => {
     res.send('Hello World');
     console.log(`Running in ${process.env.NODE_ENV || 'development'} mode`);
+    console.log('MongoDB URI:', process.env.MONGODB_URI);
+
 });
 
 app.get('/about', (req, res) => {
