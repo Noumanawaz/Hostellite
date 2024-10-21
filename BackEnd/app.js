@@ -146,11 +146,21 @@ app.get('/hostels', (req, res) => {
 // Route for search requests
 app.post('/search', (req, res) => {
     const { query } = req.body;
-    const searchResults = Array.from(hostelCache.values()).filter(h =>
-        h.location.match(new RegExp(query, 'i')) || h.name.match(new RegExp(query, 'i'))
-    );
+
+    // Normalize the search query: lowercase and remove non-alphanumeric characters
+    const normalizedQuery = query.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // Filter hostelCache based on normalized location or name
+    const searchResults = Array.from(hostelCache.values()).filter(h => {
+        const normalizedLocation = h.location.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const normalizedName = h.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        return normalizedLocation.includes(normalizedQuery) || normalizedName.includes(normalizedQuery);
+    });
+
     res.json(searchResults);
 });
+
 
 // Route to get a limited number of hostels from cache
 app.get('/hostel-limit', (req, res) => {
